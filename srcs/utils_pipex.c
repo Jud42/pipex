@@ -47,13 +47,8 @@ void	free_pipex(t_pipex *pipex)
 
 static void	take_path(char **envp, t_pipex *pipex) //take the all PATH from envp
 {
-	int	i;
-	int	j;
-
-	i = 0;
 	while (*envp++ && ft_strncmp(*envp, "PATH", 4) != 0)
 		;
-	j = -1;
 	while (*(*envp) && *(*envp) != '/') //similar to envp[i][++j]
 		(*envp)++;
 	pipex->path = ft_split((*envp), ':'); // (*envp) take the all char from index (*) stopped until EOF.

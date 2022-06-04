@@ -17,7 +17,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
-
+#include <sys/wait.h>
 typedef struct s_pipex{
 	char	**path;
 	char	**cmd_arg;
