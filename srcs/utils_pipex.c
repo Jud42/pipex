@@ -11,41 +11,66 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+
 void	msg_error(char	*s)
 {
 	perror(s);
 	exit(1);
 }
-/*-------------------------------*/
-
-void	init_pipex(t_pipex	*pipex, char **argv)
-{
-	pipex->path = NULL;
-	pipex->cmd = NULL;
-	pipex->infile = open(argv[1], O_RDONLY);
-	if (pipex->infile < 0)
-		msg_error("Error: infile");
-	pipex->outfile = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 00644);
-	/*mode 00644 droit USR = 6/ GRP = 4/ OTH = 4
-	 4 = read/ 2 = write/ 1 = execute*/
-	if (pipex->outfile < 0)
-		msg_error("Error: outfile");
-	pipex->cmd_arg = NULL;
-}
 /*----------------------------------------*/
 
-void	free_pipex(t_pipex *pipex)
+void	free_pipex(t_pipex *pipex, int flag)
 {
-	if (pipex->path)
+	int	i;
+	
+	if (flag == ALL && pipex->path)
+	{
+		i = -1;
+		while (pipex->path[++i])
+			free(pipex->path[i]);
 		free(pipex->path);
-	if (pipex->cmd_arg)
+		pipex->path = NULL;
+	}
+	if (pipex->cmd_arg && (flag == CMD_ARG || flag == ALL))
+	{
+		i = -1;
+		while (pipex->cmd_arg[++i])
+			free(pipex->cmd_arg[i]);
 		free(pipex->cmd_arg);
-	if (pipex->cmd)
+		pipex->cmd_arg = NULL;
+	}
+	if (pipex->cmd && (flag == CMD || flag == ALL))
+	{
 		free(pipex->cmd);
+		pipex->cmd = NULL;
+	}
+}
+/*-------------------------------*/
+
+void	init_pipex(t_pipex	*pipex, int argc, char **argv)
+{
+	if (pipex->here_doc == 1)
+		here_doc(argc, argv, pipex);
+	else
+	{
+		pipex->infile = open(argv[1], O_RDONLY);
+		if (pipex->infile < 0)
+			msg_error("Error: infile");
+		pipex->outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 00644);
+		/*mode 00644 droit USR = 6/ GRP = 4/ OTH = 4
+	 	4 = read/ 2 = write/ 1 = execute*/
+		if (pipex->outfile < 0)
+			msg_error("Error: outfile");
+	}
+	pipex->path = NULL;
+	pipex->cmd = NULL;
+	pipex->nb_cmd = argc - (3 + pipex->here_doc);
+	pipex->nb_pipe = 2 * (pipex->nb_cmd - 1);
+	pipex->cmd_arg = NULL;
 }
 /*--------------------------------------------------*/
 
-static void	take_path(char **envp, t_pipex *pipex) //take the all PATH from envp
+void	take_path(char **envp, t_pipex *pipex) //take the all PATH from envp
 {
 	while (*envp++ && ft_strncmp(*envp, "PATH", 4) != 0)
 		;
@@ -55,14 +80,13 @@ static void	take_path(char **envp, t_pipex *pipex) //take the all PATH from envp
 }
 /*------------------------------------------------------*/
 
-void	find_path(char **envp, t_pipex *pipex)// take the **tab path & look for the good path
+void	find_path(t_pipex *pipex)// take the **tab path & look for the good path
 {
 	int	i;
 	char	*temp;
 
 	i = -1;
 	temp = NULL;
-	take_path(envp, pipex);
 	while (pipex->path[++i])
 	{
 		temp = ft_strjoin(pipex->path[i], "/");
@@ -77,7 +101,7 @@ void	find_path(char **envp, t_pipex *pipex)// take the **tab path & look for the
 	}
 	if (!pipex->cmd)
 	{
-		free_pipex(pipex);
-		msg_error("Error: Command not found");
+		//free_pipex(pipex, ALL);
+		msg_error("Error");
 	}
 }

@@ -16,7 +16,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipex	pipex;
 	
-	if (argc != 5)
+	if (argc < 5)
 		return (0);
 	init_pipex(&pipex, argv);
 	pipex_process(argv, envp, &pipex);

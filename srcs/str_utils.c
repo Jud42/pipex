@@ -28,7 +28,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);	
 }
-
+/*
 int	ft_strlen(const char *s)
 {
 	size_t	ret;
@@ -63,4 +63,4 @@ char	*ft_strjoin(char *s1, char *s2)
 		str[j++] = *s2++;
 	str[j] = '\0';
 	return (str);
-}
+}*/

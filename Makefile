@@ -13,31 +13,34 @@
 
 NAME = pipex
 
-SRCS = $(addsuffix .c, main pipex str_utils ft_split utils_pipex)
-
-DIR_S = srcs
+SRCS = srcs/main_bonus.c srcs/pipex_bonus.c \
+	 srcs/str_utils.c srcs/ft_split.c \
+	srcs/utils_pipex.c srcs/here_doc.c \
+	get_next_line/get_next_line.c \
+	get_next_line/gnl_utils.c \
+	
 DIR_O = file_object
+OB = $(SRCS:%.c=%.o)
 
 RM = rm -rf
 FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-INCLUDE = -I include
-CC = clang
+INCLUDE = -I./include -I./get_next_line/include/
+
+CC = gcc
 
 bold := $(shell tput bold)
 col_yel = \033[0;33m
 
-SR = $(addprefix $(DIR_S)/, $(SRCS))
-OB = $(addprefix $(DIR_O)/, $(SRCS:%.c=%.o))
-
-$(DIR_O)/%.o : $(DIR_S)/%.c
-	@mkdir -p $(DIR_O)
-	@echo "\033[0;36m$(bold)Creating the file object..."
+%.o : %.c
+	@echo "$(COL)$(bold)Creating the file object..."
 	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
 	@echo "\033[0;35m $(bold)File object has been created $(col_yel):)"
 
 $(NAME) : $(OB)
 	@echo "\033[0;36m$(bold) Compiling..."
-	$(CC) $(FLAGS) $(OB) -o $@
+	@$(CC) $(FLAGS) $(OB) $(INCLUDE) -o $@
+	@mkdir -p $(DIR_O)
+	@mv $(OB) $(DIR_O)
 	@echo "$(col_yel)$(bold)[OK]. Compilation is done"
 
 all : $(NAME)
@@ -51,5 +54,7 @@ fclean : clean
 	@echo "\033[0;35m Binary file has been remoded $(col_yel):)"
 
 re : fclean $(NAME)
+
+COL = \033[0;33m
 
 .PHONY: all clean fclean re
