@@ -10,36 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_H
+# ifndef PIPEX_H
+# define PIPEX_H
 
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
+# include "get_next_line.h"
+# define CMD 1
+# define CMD_ARG 2
+# define ALL 3
 
 typedef struct s_pipex{
 	char	**path;
 	char	**cmd_arg;
 	char	*cmd;
-	int		infile;
-	int		outfile;
-	int		tube[2];
+	int	nb_cmd;
+	int	nb_pipe;
+	int	i;
+	int	infile;
+	int	outfile;
+	int	here_doc;
+
+	int	*tube;
 } t_pipex;
 
-typedef struct s_node{
-	char	**cmd_arg;
-	struct	s_node *next;
-}
-
 void	msg_error(char *s);
-void	init_pipex(t_pipex *pipex, char **argv);
-void	free_pipex(t_pipex *pipex);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	here_doc(int argc, char **argv, t_pipex *pipex);
+//int	ft_strlen(const char *s);
+void	init_pipex(t_pipex *pipex, int argc, char **argv);
+void	free_pipex(t_pipex *pipex, int flag);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char 	**ft_split(const char *s, char sep);
-char 	*ft_strjoin(char *s1, char *s2);
-void	find_path(char	**envp, t_pipex *pipex);
+//char 	*ft_strjoin(char *s1, char *s2);
+void	take_path(char **envp, t_pipex *pipex);
+void	find_path(t_pipex *pipex);
 void	pipex_process(int argc, char **argv, char	**envp, t_pipex *pipex);
 
 #endif

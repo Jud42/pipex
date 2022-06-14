@@ -27,24 +27,17 @@ typedef struct s_pipex{
 	char	**path;
 	char	**cmd_arg;
 	char	*cmd;
-	int	nb_cmd;
-	int	nb_pipe;
-	int	i;
+	int	fd[2];
 	int	infile;
 	int	outfile;
-	int	here_doc;
-
-	int	*tube;
 } t_pipex;
 
 void	msg_error(char *s);
 void	here_doc(int argc, char **argv, t_pipex *pipex);
-//int	ft_strlen(const char *s);
 void	init_pipex(t_pipex *pipex, int argc, char **argv);
 void	free_pipex(t_pipex *pipex, int flag);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char 	**ft_split(const char *s, char sep);
-//char 	*ft_strjoin(char *s1, char *s2);
 void	take_path(char **envp, t_pipex *pipex);
 void	find_path(t_pipex *pipex);
 void	pipex_process(int argc, char **argv, char	**envp, t_pipex *pipex);

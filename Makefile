@@ -13,14 +13,21 @@
 
 NAME = pipex
 
-SRCS = srcs/main_bonus.c srcs/pipex_bonus.c \
-	 srcs/str_utils.c srcs/ft_split.c \
-	srcs/utils_pipex.c srcs/here_doc.c \
+SRC =	srcs/utils.c \
+	srcs/utils_pipex.c \
 	get_next_line/get_next_line.c \
 	get_next_line/gnl_utils.c \
-	
+OB_SRC = $(SRC:%.c=%.o) 
+
+SRC_M = srcs/mandatory/main.c srcs/mandatory/pipex.c
+OB_M = $(SRC_M:%.c=%.o)
+
+SRC_B = srcs/bonus/main_bonus.c srcs/bonus/pipex_bonus.c \
+	srcs/bonus/here_doc.c \
+OB_B = $(SRC_B:%.c=%.o)
+
 DIR_O = file_object
-OB = $(SRCS:%.c=%.o)
+OB = $(OB_SRC) $(OB_M) $(OB_B)
 
 RM = rm -rf
 FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
