@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:15:59 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/03 17:14:26 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/14 10:50:14 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_pipex{
 
 void	msg_error(char *s);
 void	here_doc(int argc, char **argv, t_pipex *pipex);
-void	init_pipex(t_pipex *pipex, int argc, char **argv);
 void	free_pipex(t_pipex *pipex, int flag);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char 	**ft_split(const char *s, char sep);

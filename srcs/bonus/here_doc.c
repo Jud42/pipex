@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static void	file_in_out(char *argv, char *path, t_pipex *pipex)
 {
@@ -8,7 +8,7 @@ static void	file_in_out(char *argv, char *path, t_pipex *pipex)
 		unlink(path);
 		msg_error("Error: infile");
 	}
-	pipex->outfile = open(argv, O_CREAT | O_WRONLY | O_TRUNC, 00644);
+	pipex->outfile = open(argv, O_CREAT | O_WRONLY | O_APPEND, 00644);
 	if (pipex->outfile < 0)
 		msg_error("Error: outfile");
 }

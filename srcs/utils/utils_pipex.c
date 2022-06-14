@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:23:22 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/03 18:18:22 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/14 21:29:45 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	msg_error(char	*s)
 void	free_pipex(t_pipex *pipex, int flag)
 {
 	int	i;
-	
+
+	i = -1;	
 	if (flag == ALL && pipex->path)
 	{
-		i = -1;
 		while (pipex->path[++i])
 			free(pipex->path[i]);
 		free(pipex->path);
@@ -67,11 +67,9 @@ void	find_path(t_pipex *pipex)// take the **tab path & look for the good path
 		free(temp);
 	}
 	if (!pipex->cmd)
-	{
-		//free_pipex(pipex, ALL);
-		msg_error("Error");
-	}
+		msg_error("Error: command not found");
 }
+/*-------------------------------------------------------------*/
 
 void	take_path(char **envp, t_pipex *pipex) //take the all PATH from envp
 {
