@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:43:19 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/16 19:17:04 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 20:45:40 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ static void	process_child(char **argv, char **env, t_pipex pip)
 	dup2(pip.fd[1], 1);
 	pip.cmd_arg = ft_split(argv[2], ' ');
 	find_path(&pip);
-	execve(pip.cmd, pip.cmd_arg, env);
+	if (execve(pip.cmd, pip.cmd_arg, env) < 0)
+	{
+		free_pipex(&pip, ALL);
+		msg_error("Error execve");
+	}
+	free_pipex(&pip, CMD_ARG);
+	free_pipex(&pip, CMD);
 }
 
 static void	process_parent(char **argv, char **env, t_pipex pip)
@@ -50,7 +56,11 @@ static void	process_parent(char **argv, char **env, t_pipex pip)
 	dup2(pip.outfile, 1);
 	pip.cmd_arg = ft_split(argv[3], ' ');
 	find_path(&pip);
-	execve(pip.cmd, pip.cmd_arg, env);
+	if (execve(pip.cmd, pip.cmd_arg, env) < 0)
+	{
+		free_pipex(&pip, ALL);
+		msg_error("Error execve");
+	}
 }
 
 int	main(int argc, char *argv[], char *envp[])

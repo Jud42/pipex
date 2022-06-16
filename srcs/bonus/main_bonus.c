@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:43:19 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/16 19:23:40 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 21:01:45 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ int	main(int argc, char *argv[], char *envp[])
 	t_pipex	pipex;
 
 	if (argc < parse_in(argv, &pipex))
-		return (0);
+	{
+		write(2, "Bad argument\n", 13);
+		exit(1);
+	}
 	init_pipex(&pipex, argc, argv);
 	pipex.tube = (int *)malloc(sizeof(int) * pipex.nb_pipe);
 	if (!pipex.tube)
@@ -80,6 +83,8 @@ int	main(int argc, char *argv[], char *envp[])
 	pipe_init(&pipex);
 	take_path(envp, &pipex);
 	pipex_process(argv, envp, &pipex);
+	close(pipex.infile);
+	close(pipex.outfile);
 	free(pipex.tube);
 	free_pipex(&pipex, ALL);
 	return (0);

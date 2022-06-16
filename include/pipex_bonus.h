@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:15:59 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/16 19:41:12 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 20:29:44 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_pipex{
 	int		nb_cmd;
 	int		nb_pipe;
 	int		i;
+	pid_t	pid;
 	int		infile;
 	int		outfile;
 	int		here_doc;
