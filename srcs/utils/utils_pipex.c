@@ -66,8 +66,11 @@ void	find_path(t_pipex *pipex)// take the **tab path & look for the good path
 		}
 		free(temp);
 	}
-	if (!pipex->cmd)
-		msg_error("Error: command not found");
+	if (pipex->cmd == NULL)
+	{
+		free_pipex(pipex, CMD_ARG);
+		msg_error("command not found");
+	}
 }
 /*-------------------------------------------------------------*/
 

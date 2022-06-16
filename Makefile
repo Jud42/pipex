@@ -39,37 +39,37 @@ INCLUDE = -I./include -I./get_next_line/include/
 CC = gcc
 
 bold := $(shell tput bold)
-col_yel = \033[0;33m
+col_yel = \033[33;33m
 
 %.o : %.c
-	@echo "$(COL)$(bold)Creating the file object..."
+	@echo -e "$(col_yel)=== $(bold)Creating the file object..."
 	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
-	@echo "\033[0;35m $(bold)File object has been created $(col_yel):)"
+	@echo -e "\033[0;35m $(bold)File object has been created $(col_yel):)"
 
 $(NAME) : $(OB_UTILS) $(OB_M) 
-	@echo "\033[0;36m$(bold) Compiling..."
+	@echo -e "\033[0;36m$(bold) Compiling..."
 	@$(CC) $(FLAGS) $^ -o $@
 	@mkdir -p $(DIR_O)
 	@mv $(OB_UTILS) $(OB_M) $(DIR_O)
-	@echo "$(col_yel)$(bold)[OK]. Compilation is done"
+	@echo -e "$(col_yel)$(bold)[OK]. Compilation is done"
 
 all : $(NAME)
 
 bonus : $(OB_UTILS) $(OB_B)
-	@echo "\033[0;36m$(bold) Compiling bonus..."
+	@echo -e "\033[0;36m=== $(bold) Compiling bonus..."
 	@$(CC) $(FLAGS) $^ -o pipex_bonus
 	@mkdir -p $(DIR_O)
 	@mv $(OB_UTILS) $(OB_B) $(DIR_O)
-	@echo "$(col_yel)$(bold)[OK]. Compilation is done"
+	@echo -e "$(col_yel)$(bold)[OK]. Compilation is done"
 
 
 clean : 
 	@$(RM) $(DIR_O)
-	@echo "\033[0;35m File object has been removed $(col_yel):)"
+	@echo -e "\033[0;35m File object has been removed $(col_yel):)"
 
 fclean : clean
 	@$(RM) $(NAME) pipex_bonus
-	@echo "\033[0;35m Binary file has been remoded $(col_yel):)"
+	@echo -e "\033[0;35m Binary file has been remoded $(col_yel):)"
 
 re : fclean $(NAME)
 
