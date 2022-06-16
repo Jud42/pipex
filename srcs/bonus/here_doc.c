@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/16 19:17:25 by rmamison          #+#    #+#             */
+/*   Updated: 2022/06/16 19:17:55 by rmamison         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex_bonus.h"
 
 static void	file_in_out(char *argv, char *path, t_pipex *pipex)
@@ -15,7 +27,7 @@ static void	file_in_out(char *argv, char *path, t_pipex *pipex)
 
 void	here_doc(int argc, char **argv, t_pipex *pipex)
 {
-	int	file_temp;
+	int		file_temp;
 	char	*limiter;
 	char	*temp;
 

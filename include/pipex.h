@@ -6,11 +6,11 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:15:59 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/14 10:50:14 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:36:09 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PIPEX_H
+#ifndef PIPEX_H
 # define PIPEX_H
 
 # include <unistd.h>
@@ -28,18 +28,17 @@ typedef struct s_pipex{
 	char	**cmd_arg;
 	char	*cmd;
 	pid_t	pid;
-	int	fd[2];
-	int	infile;
-	int	outfile;
-} t_pipex;
+	int		fd[2];
+	int		infile;
+	int		outfile;
+}	t_pipex;
 
+int		error_cmd(char *s);
 void	msg_error(char *s);
-void	here_doc(int argc, char **argv, t_pipex *pipex);
 void	free_pipex(t_pipex *pipex, int flag);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-char 	**ft_split(const char *s, char sep);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	**ft_split(const char *s, char sep);
 void	take_path(char **envp, t_pipex *pipex);
 void	find_path(t_pipex *pipex);
-void	pipex_process(int argc, char **argv, char	**envp, t_pipex *pipex);
 
 #endif

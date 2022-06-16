@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:43:19 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/14 13:06:37 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:25:39 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	dup_fd(int in, int out)
 
 static void	close_fd(t_pipex *pipex)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < pipex->nb_pipe)
@@ -39,7 +39,8 @@ static void	process_child(char **argv, char **envp, t_pipex pipex)
 		else if (pipex.i == pipex.nb_cmd - 1)
 			dup_fd(pipex.tube[(2 * pipex.i) - 2], pipex.outfile);
 		else
-			dup_fd(pipex.tube[(2 * pipex.i) - 2], pipex.tube[(pipex.i * 2) + 1]);
+			dup_fd(pipex.tube[(2 * pipex.i) - 2], \
+					pipex.tube[(pipex.i * 2) + 1]);
 		close_fd(&pipex);
 		pipex.cmd_arg = ft_split(argv[2 + pipex.i + pipex.here_doc], ' ');
 		find_path(&pipex);
@@ -47,14 +48,12 @@ static void	process_child(char **argv, char **envp, t_pipex pipex)
 		free_pipex(&pipex, CMD_ARG);
 	}
 }
-void	pipex_process(int argc, char **argv, char **envp, t_pipex *pipex)
-{
-	(void) argc;
-	pipex->i = -1;
 
+void	pipex_process(char **argv, char **envp, t_pipex *pipex)
+{
+	pipex->i = -1;
 	while (++(pipex->i) < pipex->nb_cmd)
-		process_child(argv, envp, *pipex);	
+		process_child(argv, envp, *pipex);
 	close_fd(pipex);
 	waitpid(-1, NULL, 0);
 }
-

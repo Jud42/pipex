@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:43:19 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/14 11:58:22 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:23:40 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ static void	init_pipex(t_pipex	*pipex, int argc, char **argv)
 		pipex->infile = open(argv[1], O_RDONLY);
 		if (pipex->infile < 0)
 			msg_error("Error: infile");
-		pipex->outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 00644);
-		/*mode 00644 droit USR = 6/ GRP = 4/ OTH = 4
-	 	4 = read/ 2 = write/ 1 = execute*/
+		pipex->outfile = open(argv[argc - 1], \
+				O_TRUNC | O_CREAT | O_RDWR, 0644);
 		if (pipex->outfile < 0)
 			msg_error("Error: outfile");
 	}
@@ -44,7 +43,7 @@ static int	parse_in(char **argv, t_pipex *pipex)
 		pipex->here_doc = 1;
 		ret = 6;
 	}
-	else 
+	else
 		pipex->here_doc = 0;
 	return (ret);
 }
@@ -68,7 +67,7 @@ static void	pipe_init(t_pipex *pipex)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipex	pipex;
-	
+
 	if (argc < parse_in(argv, &pipex))
 		return (0);
 	init_pipex(&pipex, argc, argv);
@@ -79,10 +78,9 @@ int	main(int argc, char *argv[], char *envp[])
 		msg_error("Error: malloc");
 	}
 	pipe_init(&pipex);
-	take_path(envp, &pipex); //all path exists
-	pipex_process(argc, argv, envp, &pipex);
+	take_path(envp, &pipex);
+	pipex_process(argv, envp, &pipex);
 	free(pipex.tube);
 	free_pipex(&pipex, ALL);
 	return (0);
 }
-

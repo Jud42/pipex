@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 10:54:41 by rmamison          #+#    #+#             */
-/*   Updated: 2021/12/04 14:58:40 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:42:26 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ char	*ft_line_left(char *str)
 	j = 0;
 	while (str[i] && str[i] != '\n')
 		p[j++] = str[i++];
-//	if (str[i] == '\n')
-//		p[j++] = str[i++];
 	p[j] = '\0';
 	return (p);
 }

@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 10:51:33 by rmamison          #+#    #+#             */
-/*   Updated: 2021/12/04 14:56:18 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:41:41 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #  define BUFFER_SIZE 4000
 # endif
 
-//# include "pipex.h"
 # include <stdlib.h>
 # include <unistd.h>
 

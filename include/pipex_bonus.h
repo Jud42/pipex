@@ -6,12 +6,12 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:15:59 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/14 12:05:09 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:41:12 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -27,23 +27,22 @@ typedef struct s_pipex{
 	char	**path;
 	char	**cmd_arg;
 	char	*cmd;
-	int	nb_cmd;
-	int	nb_pipe;
-	int	i;
-	int	infile;
-	int	outfile;
-	int	here_doc;
-
-	int	*tube;
-} t_pipex;
+	int		nb_cmd;
+	int		nb_pipe;
+	int		i;
+	int		infile;
+	int		outfile;
+	int		here_doc;
+	int		*tube;
+}	t_pipex;
 
 void	msg_error(char *s);
 void	here_doc(int argc, char **argv, t_pipex *pipex);
 void	free_pipex(t_pipex *pipex, int flag);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char 	**ft_split(const char *s, char sep);
+char	**ft_split(const char *s, char sep);
 void	take_path(char **envp, t_pipex *pipex);
 void	find_path(t_pipex *pipex);
-void	pipex_process(int argc, char **argv, char	**envp, t_pipex *pipex);
+void	pipex_process(char **argv, char	**envp, t_pipex *pipex);
 
 #endif

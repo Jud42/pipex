@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_str.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/16 19:30:03 by rmamison          #+#    #+#             */
+/*   Updated: 2022/06/16 19:33:10 by rmamison         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
+/*---------------------*/
 static	int	count_sep(const char *s, char sep)
 {
-	int 	ret;
+	int	ret;
 	int	times;
 
 	ret = 0;
@@ -31,7 +44,7 @@ static	int	len_word(const char	*s, char sep, int i)
 static char	*word_send(const char *s, char sep, int	*pos, int size)
 {
 	char	*word;
-	int	j;
+	int		j;
 
 	j = -1;
 	word = malloc(sizeof(char) * size + 1);
@@ -46,13 +59,13 @@ static char	*word_send(const char *s, char sep, int	*pos, int size)
 char	**ft_split(const char *s, char sep)
 {
 	char	**tab;
-	int	i;
-	int	j;
-	int	size;
+	int		i;
+	int		j;
+	int		size;
 
 	tab = (char **)malloc(sizeof(char *) * (count_sep(s, sep) + 1));
 	if (!tab)
-		return NULL;
+		return (NULL);
 	j = -1;
 	i = 0;
 	while (s[i])
@@ -66,7 +79,7 @@ char	**ft_split(const char *s, char sep)
 			i++;
 	}
 	tab[j + 1] = NULL;
-	return (tab);	
+	return (tab);
 }
 /*---------------------------------------------------*/
 
@@ -84,5 +97,5 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		else
 			return (*s1 - *s2);
 	}
-	return (0);	
+	return (0);
 }

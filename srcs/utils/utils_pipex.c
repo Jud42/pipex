@@ -6,11 +6,17 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:23:22 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/14 21:29:45 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:40:42 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+int	error_cmd(char *s)
+{
+	write(2, s, ft_strlen(s));
+	return (127);
+}
 
 void	msg_error(char	*s)
 {
@@ -23,7 +29,7 @@ void	free_pipex(t_pipex *pipex, int flag)
 {
 	int	i;
 
-	i = -1;	
+	i = -1;
 	if (flag == ALL && pipex->path)
 	{
 		while (pipex->path[++i])
@@ -47,9 +53,9 @@ void	free_pipex(t_pipex *pipex, int flag)
 }
 /*------------------------------------------------------*/
 
-void	find_path(t_pipex *pipex)// take the **tab path & look for the good path
+void	find_path(t_pipex *pipex)
 {
-	int	i;
+	int		i;
 	char	*temp;
 
 	i = -1;
@@ -69,16 +75,17 @@ void	find_path(t_pipex *pipex)// take the **tab path & look for the good path
 	if (pipex->cmd == NULL)
 	{
 		free_pipex(pipex, CMD_ARG);
-		msg_error("command not found");
+		error_cmd("command not found\n");
+		exit (1);
 	}
 }
 /*-------------------------------------------------------------*/
 
-void	take_path(char **envp, t_pipex *pipex) //take the all PATH from envp
+void	take_path(char **envp, t_pipex *pipex)
 {
 	while (*envp++ && ft_strncmp(*envp, "PATH", 4) != 0)
 		;
-	while (*(*envp) && *(*envp) != '/') //similar to envp[i][++j]
+	while (*(*envp) && *(*envp) != '/')
 		(*envp)++;
-	pipex->path = ft_split((*envp), ':'); // (*envp) take the all char from index (*) stopped until EOF.
+	pipex->path = ft_split((*envp), ':');
 }
