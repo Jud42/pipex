@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 11:15:59 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/16 19:36:09 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/17 17:10:54 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_pipex{
 	char	**path;
 	char	**cmd_arg;
 	char	*cmd;
-	pid_t	pid;
+	pid_t	pid[2];
 	int		fd[2];
 	int		infile;
 	int		outfile;

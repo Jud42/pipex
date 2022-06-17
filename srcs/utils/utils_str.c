@@ -6,7 +6,7 @@
 /*   By: rmamison <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 19:30:03 by rmamison          #+#    #+#             */
-/*   Updated: 2022/06/16 19:33:10 by rmamison         ###   ########.fr       */
+/*   Updated: 2022/06/17 16:32:20 by rmamison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ char	**ft_split(const char *s, char sep)
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (!*s1 || !*s2)
-		return (0);
+	if (!*s1)
+		return (-1);
 	while (n-- > 0)
 	{
 		if (*s1 && *s1 == *s2)
